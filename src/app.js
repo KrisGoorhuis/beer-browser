@@ -8,9 +8,6 @@ import ReactDOM from 'react-dom';
 
 const css = require('./app.scss');
 
-test
-
-
 const App = () => {
 	return (
 		<div>
