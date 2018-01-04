@@ -1,0 +1,30 @@
+
+<nav ng-controller="NavController as nav" id="topbar-container" class="navbar navbar-expand-md navbar-light bg-light">
+
+	<div ng-click="nav.scrollToSection('welcome');" id="brand" class="navbar-brand" href="#">Kris' Beer App</div>	
+
+  	<button ng-click="nav.toggleNav()" id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-links-div" aria-controls="nav-links-div" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="fa fa-bars" aria-hidden="true"></span>
+ 	</button>
+
+	<!-- Data toggle/data-target for links is handled in NavController.
+		This way we can have a link in the dropdown hamburger version collapse, but full desktop versions don't collapse. -->
+	<div id="nav-links-div" class="collapse navbar-collapse">
+	 	<ul id="nav-bar-ul" class="navbar-nav mr-auto">
+	      	<li id="nav-home" class="nav-item">
+	        	<a ng-click="" class="nav-link">Search by style</a>
+	      	</li>
+	      	<li id="nav-about" class="nav-item">
+	        	<a ng-click="nav.scrollToSection('portfolio'); nav.toggleNav()" class="nav-link">Portfolio</a>
+	      	</li>
+	      	<li id="nav-about" class="nav-item">
+	        	<a ng-click="nav.scrollToSection('about'); nav.toggleNav()" class="nav-link">About</a>
+	      	</li>
+      		<li id="nav-contact" class="nav-item">
+	        	<a ng-click="nav.scrollToSection('contact'); nav.toggleNav()" class="nav-link">Contact</a>
+      		</li>
+	    </ul>
+  	</div>	
+
+
+</nav>

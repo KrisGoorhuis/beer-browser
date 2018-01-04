@@ -1,0 +1,21 @@
+<div id="main-jumbotron-container" class="container">
+
+	<div id="main-jumbotron" class="jumbotron">
+		<h1>Find some beer!</h1>
+	</div>
+
+	<div id="sub-jumbotron-text" ng-controller="BeerListController as list">
+		<input id="beerstyle" placeholder="Name, style, something" ng-model="searchterm">
+		<button id="submitbeer" ng-click="list.sendRequestForBeer()">Find</button>
+
+		<div id="beerReadout">
+			<div ng-repeat="beer in CompleteBeerList">
+				test
+			</div>
+		 </div>
+
+	 </div>
+
+	 
+
+</div>
