@@ -1,38 +1,26 @@
 
-import './app.scss';
-// import $ from 'jquery';
-import 'jquery/src/jquery';
-import 'bootstrap';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-const css = require('./app.scss');
+const Headline = () => {
+	return <h1 className="jumbotron">Kris' Beer Browser</h1>
+}
 
-const App = () => {
+const HeadlineSubtext = (props) => {
+	const {name, age} = props;
+	return <p> With data courtesy of {name} {age} </p>
+}
+
+export const App = () => {
 	return (
 		<div>
-			<h1 className="jumbotron">Hello World!</h1>
-			<p> Testing rendering! </p>
+			<Headline />
+			<HeadlineSubtext name="BreweryDB" age={25} />
 		</div>
 	)
 }
-test
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
 
-// export default class App extends Component {
-//   render() {
-//     return (
-//       <h1>Hello, world.</h1>
-//     );
-//   }
-// }
-
-
-
-$(document).ready(function() {
-
-
-});
+HeadlineSubtext.propTypes = {
+	name: PropTypes.string.isRequired,
+	age: PropTypes.number
+}
