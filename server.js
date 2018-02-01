@@ -17,7 +17,7 @@ app.get('/', function(request, response) {
 app.get('/getCompleteStyleList', function(request, response) {
 	const getAddress = "".concat(baseUrl, "styles", "?key=", apiKey, "&format=json"); 	// We can't just get everything in the database without subscribing. 
 
-	http.get(getAddress, function() {	   
+	http.get(getAddress, function(innerResponse) {	   
 		let body = "";
 
 		innerResponse.on("data", function(data) {

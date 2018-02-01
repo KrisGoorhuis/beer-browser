@@ -17,29 +17,35 @@ const HeadlineSubtext = (props) => {
 }
 
 
-class SearchArea extends React.Component{
-	constructor(props) {
-		super(props);
-	}
+// class SearchArea extends React.Component{
+// 	constructor(props) {
+// 		super(props);
+// 	}
 
-	searchStyle(e) {
-		e.preventDefault();
-		let searchTerm = this.searchTerm.value;
+// 	searchStyle(e) {
+// 		e.preventDefault();
+// 		const allStyles = this.props.allStyles;
+// 		let searchTerm = this.searchTerm.value;
 		
-		this.props.callbackFromParent(searchTerm);
-		this.searchForm.reset();
-	}
+// 		allStyles.map( (searchTerm, index) => {
+// 			if (allStyles[index].name)
+// 		})
 
-	render() {
-		return <form ref={ input => { this.searchForm = input} } id="search" className="form-inline" onSubmit={ e => {this.searchStyle(e) }}> 
-			<div className="form-group">
-				<label className="sr-only" htmlFor="newItemInput">Find a Style</label>
-				<input ref={ input => { this.searchTerm = input } } type="text" placeholder="Find a style" className="form-control" id="newItemInput" />
-			</div>
-			<button type="submit" className="btn btn-primary">Search</button>
-		</form>
-	}
-}
+// 		this.props.callbackFromParent(searchTerm);
+// 		this.searchForm.reset();
+// 	}
+
+// 	render() {
+// 		return <form ref={ input => { this.searchForm = input} } id="search" className="form-inline" onSubmit={ e => {this.searchStyle(e) }}> 
+// 		{this.props.styleSelected}
+// 			<div className="form-group">
+// 				<label className="sr-only" htmlFor="newItemInput">Find a Style</label>
+// 				<input ref={ input => { this.searchTerm = input } } type="text" placeholder="Find a style" className="form-control" id="newItemInput" />
+// 			</div>
+// 			<button type="submit" className="btn btn-primary">Search</button>
+// 		</form>
+// 	}
+// }
 
 
 class BeerStyleBrowserBox extends React.Component{
@@ -47,9 +53,10 @@ class BeerStyleBrowserBox extends React.Component{
 	constructor(props) {
 		super(props);
 		this.allStyles = [];
+		this.callback = this.callback.bind(this);
 
 		let rawStyleData = "";
-		$.get('/', (response) => { // A new "this." is not defined with the get request. Arrow functions to the rescue!
+		$.get('/getCompleteStyleList', (response) => { // A new "this." is not defined with the get request. Arrow functions to the rescue!
 			rawStyleData = response.data;
 
 			for (let i = 0; i < rawStyleData.length; i++) {  
@@ -93,7 +100,7 @@ class BeerStyleBrowserBox extends React.Component{
 		})
 	}
 
-	selectBeer(selectedStyleData, index) {
+	selectBeerStyle(selectedStyleData, index) {
 		console.log(selectedStyleData);
 		this.setState({
 			activeStyleId: "beer-style" + index,
@@ -113,6 +120,12 @@ class BeerStyleBrowserBox extends React.Component{
 		})
 	}
 	
+	callback(searchStyleSelected) {
+		console.log(searchStyleSelected);
+		this.setState({
+			styleSelected: searchStyleSelected
+		})
+	}
 	
 	render() {
 		const allStyles = this.allStyles;
@@ -121,7 +134,7 @@ class BeerStyleBrowserBox extends React.Component{
 		return <div id="beer-browser-box" className="col-md-12">
 			{
 				this.props.dataFromParent &&
-				console.log("We're running code when the thing happened!")
+				<div>{this.props.dataFromParent}</div>
 			}
 			{
 				!styleListIsPopulated &&
@@ -146,7 +159,7 @@ class BeerStyleBrowserBox extends React.Component{
 							<div className="beer-style-list">
 								{	
 									categoryObject[ Object.keys(categoryObject)[0] ].map( (styleObject, index) => {
-										return <p id={"beer-style" + index} className={ activeStyleId === "beer-style" + index ? "beer-style-active" : "beer-style-inactive"} key={Object.keys(styleObject)[0]} data-toggle="collapse" data-target="#beer-name-list" onClick={ e => this.selectBeer(styleObject[Object.keys(styleObject)[0]], index)}>{Object.keys(styleObject)[0]} </p>
+										return <p id={"beer-style" + index} className={ activeStyleId === "beer-style" + index ? "beer-style-active" : "beer-style-inactive"} key={Object.keys(styleObject)[0]} data-toggle="collapse" data-target="#beer-name-list" onClick={ e => this.selectBeerStyle(styleObject[Object.keys(styleObject)[0]], index)}>{Object.keys(styleObject)[0]} </p>
 											
 									})
 								}
@@ -181,7 +194,7 @@ export class App extends React.Component{
     
     constructor(props) {
 		super(props);
-		this.callback = this.callback.bind(this);
+		
 
 		this.state = {
 			styleListIsPopulated: false,
@@ -191,23 +204,18 @@ export class App extends React.Component{
         
 	}
 
-	callback(dataFromChild) {
-		console.log(dataFromChild);
-		this.setState({
-			termSearchedFor: dataFromChild
-		})
-	}
+	
 
 	render() { 
         const {styleListIsPopulated, message, termSearchedFor} = this.state;
         
 		return (
 			<div>
+
 				<header id="header">	
 					<Headline />				
-                    <SearchArea callbackFromParent={this.callback}/>
+					{/* <SearchArea allStyles={allStyles}/> */}
 				</header>
-
 				<div className = "content">					
 					<BeerStyleBrowserBox dataFromParent={termSearchedFor} />
 					
