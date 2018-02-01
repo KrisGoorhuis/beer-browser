@@ -18,6 +18,14 @@ $bootstrap-sass-asset-helper: true; /* Solution I don't understand from https://
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome.scss';
 
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%
+}
+
 h3 {
 	font-size: 20px;
 	margin: 0px;
@@ -27,6 +35,17 @@ h4 {
 	padding-bottom: 0px;
 	margin: 0px;
 	font-size: 16px;
+}
+
+h5 {
+	font-weight: bold;
+	display: inline-block;
+	padding: 5px;
+	border-radius: 5px;
+	color: white;
+	a {
+		color: rgba(51, 122, 183, 1.0);
+	}
 }
 
 h6 {
@@ -41,19 +60,19 @@ h6 {
 	margin: auto;
 	background-image: url('/images/beer-background.jpg');
 	background-size: cover;
-	height: 900px;	
+	height: 100%;	
 	min-width: 1000px;
 }
 
 #header {
 	width: 1000px;
 	margin: auto;
+	padding-left: 50px;
 }
 
 #headline {
 	color: white;
 	font-size: 50px;
-	margin-left: 50px;
 	margin-top: 100px;
 	font-family: "Oswald";
 }

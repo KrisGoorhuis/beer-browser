@@ -213,7 +213,8 @@ export class App extends React.Component{
 			<div>
 
 				<header id="header">	
-					<Headline />				
+					<Headline />
+					<h5>With data courtesy of <a href="http://www.brewerydb.com/" target="_blank">BreweryDB.com</a></h5>
 					{/* <SearchArea allStyles={allStyles}/> */}
 				</header>
 				<div className = "content">					
