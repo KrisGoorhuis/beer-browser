@@ -14,10 +14,10 @@ app.get('/', function(request, response) {
 	response.sendFile('public/index.html')
 });
 
-app.get('/getCompleteBeerList', function(request, response) {
+app.get('/getCompleteStyleList', function(request, response) {
 	const getAddress = "".concat(baseUrl, "styles", "?key=", apiKey, "&format=json"); 	// We can't just get everything in the database without subscribing. 
 
-	http.get(getAddress, function(innerResponse) {	   
+	http.get(getAddress, function() {	   
 		let body = "";
 
 		innerResponse.on("data", function(data) {
@@ -32,9 +32,21 @@ app.get('/getCompleteBeerList', function(request, response) {
 	});
 });
 
-app.get('/getSpecificBeerList', function(request, response) {
-	const getAddress = "".concat(baseUrl, request.queries, "?key=", apiKey, "&format=json");
+app.get('/getSpecificStyle', function(request, response) {
+	const getAddress = "".concat(baseUrl, "styles", request.query, "?key=", apiKey, "&format=json");
 
+	http.get(getAddress, function(innerResponse) {	   
+		let body = "";
+
+		innerResponse.on("data", function(data) {
+			body += data;
+		});
+
+		innerResponse.on("end", function() {
+			body = JSON.parse(body);
+			response.send(body);
+		});
+	})
 })
 
 app.listen(process.env.PORT || 3000, function() {
