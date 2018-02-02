@@ -96,7 +96,8 @@ class BeerStyleBrowserBox extends React.Component{
 
 	selectCategory(index) {
 		this.setState({
-			activeCategoryId: "button" + index
+			activeCategoryId: "button" + index,
+			activeStyleId: ""
 		})
 	}
 
