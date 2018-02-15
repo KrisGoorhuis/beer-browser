@@ -1,6 +1,8 @@
-
+import $ from 'jquery';
 import React from 'react';
 import PropTypes from 'prop-types';
+import http from 'http';
+//var http = require('http');
 
 const oldRawStyleData = require('./rawStyleData.json');
 
@@ -48,7 +50,7 @@ const HeadlineSubtext = (props) => {
 // }
 
 
-class BeerStyleBrowserBox extends React.Component{
+export default class BeerStyleBrowserBox extends React.Component{
 
 	constructor(props) {
 		super(props);
@@ -58,6 +60,7 @@ class BeerStyleBrowserBox extends React.Component{
 		let rawStyleData = "";
 		$.get('/getCompleteStyleList', (response) => { // A new "this." is not defined with the get request. Arrow functions to the rescue!
 			rawStyleData = response.data;
+			console.log("$ method");
 
 			for (let i = 0; i < rawStyleData.length; i++) {  
 				let categoryOfStyle = rawStyleData[i].category.name;
@@ -86,6 +89,89 @@ class BeerStyleBrowserBox extends React.Component{
 			})
 
 		});
+
+		// http.get('/getCompleteStyleList', (response) => {	   
+		// 	let body = "";
+	
+		// 	response.on("data", function(data) {
+		// 		body += data;
+		// 	});
+	
+		// 	response.on("end", function() {
+		// 		body = JSON.parse(body);
+		// 		rawStyleData = body;
+				
+		// 		for (let i = 0; i < rawStyleData.length; i++) {  
+		// 			let categoryOfStyle = rawStyleData[i].category.name;
+		// 			let styleShortName = rawStyleData[i].name;
+					
+		// 			let categoryExists = false;
+		// 			for (let j = 0; j < this.allStyles.length; j++) {
+		// 				if ( (categoryOfStyle in this.allStyles[j]) ) {
+		// 					categoryExists = true;
+		// 					this.allStyles[j][categoryOfStyle].push({ [styleShortName]: rawStyleData[i]});
+		// 				}
+		// 			}
+			
+		// 			if (!categoryExists) {
+		// 				this.allStyles.push({ 
+		// 					[categoryOfStyle]: [{ [styleShortName]: rawStyleData[i]}] 
+		// 				});
+		// 			} else if (categoryExists) {
+		// 				// Add the styleShortName to the right catgory - accomplished in j loop above
+		// 			}
+				
+		// 		}
+	
+		// 		this.setState({
+		// 			styleListIsPopulated: true
+		// 		})
+				
+		// 	});
+
+
+		// });
+		// let httpRequest = new XMLHttpRequest();
+		// httpRequest.open('GET', '/getCompleteStyleList', true);
+		// httpRequest.onreadystatechange = () => {
+		// 	if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		// 		// Everything is good, the response was received.
+		// 		rawStyleData = JSON.parse(httpRequest.responseText).data;
+		// 		console.log(rawStyleData);
+
+		// 	for (let i = 0; i < rawStyleData.length; i++) {  
+		// 		let categoryOfStyle = rawStyleData[i].category.name;
+		// 		let styleShortName = rawStyleData[i].name;
+				
+		// 		let categoryExists = false;
+		// 		for (let j = 0; j < this.allStyles.length; j++) {
+		// 			if ( (categoryOfStyle in this.allStyles[j]) ) {
+		// 				categoryExists = true;
+		// 				this.allStyles[j][categoryOfStyle].push({ [styleShortName]: rawStyleData[i]});
+		// 			}
+		// 		}
+		
+		// 		if (!categoryExists) {
+		// 			this.allStyles.push({ 
+		// 				[categoryOfStyle]: [{ [styleShortName]: rawStyleData[i]}] 
+		// 			});
+		// 		} else if (categoryExists) {
+		// 			// Add the styleShortName to the right catgory - accomplished in j loop above
+		// 		}
+			
+		// 	}
+
+		// 		this.setState({
+		// 			styleListIsPopulated: true
+		// 		})
+		// 	} else {
+		// 		// Not ready yet.
+		// 		console.log("not ready");
+		// 	}
+			
+
+		// };
+		// httpRequest.send();
 
 		
 		this.state = {
