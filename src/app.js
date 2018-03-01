@@ -232,3 +232,22 @@ HeadlineSubtext.propTypes = {
 	name: PropTypes.string.isRequired,
 	age: PropTypes.number
 }
+
+
+
+
+
+
+
+
+const starter = [0, 1];
+let answerArray = [];
+
+function doStuff() {
+	for (let i = 1; i < 10; i++) {
+		let thisAnswer = starter[i] + starter[i-1];
+		answerArray.push(thisAnswer);
+	}
+
+
+}
